@@ -25,8 +25,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Dar permisos al Gradle
-      run: chmod +x ./gradlew
+    - name: Dar permisos a Maven Wrapper
+      run: chmod +x aleyumy/mvnw
 
-    - name: Compilar proyecto
-      run: ./gradlew build
+    - name: Compilar proyecto Spring Boot
+      run: cd aleyumy && ./mvnw clean
+    install

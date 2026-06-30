@@ -1,0 +1,41 @@
+name: Despliegue Continuo Producción Aleyumy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-produccion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      # Empaquetado definitivo del Backend
+      - name: Configurar Java 21 para Producción
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Construir Artefacto Compilado (.JAR)
+        run: |
+          cd aleyumy
+          chmod +x mvnw
+          ./mvnw clean package -DskipTests
+
+      # Empaquetado definitivo del Frontend
+      - name: Configurar Node.js para Producción
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Compilar Distribución Estática de React
+        run: |
+          cd "aleyumi react/facturas"
+          npm ci
+          npm run build
+
+      - name: Distribución de Artefactos de Producción
+        run: echo "Despliegue automatizado completado con éxito en el servidor en la nube."

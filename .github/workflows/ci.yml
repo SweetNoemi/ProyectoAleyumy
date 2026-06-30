@@ -27,4 +27,4 @@ jobs:
         run: chmod +x aleyumy/mvnw
 
       - name: Compilar proyecto Spring Boot
-        run: cd aleyumy && ./mvnw clean install
+        run: cd aleyumy && ./mvnw package
